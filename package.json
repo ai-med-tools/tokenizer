@@ -1,0 +1,56 @@
+{
+  "name": "@ai-med-tools/tokenizer",
+  "version": "1.2.3",
+  "description": "aimed tokenizer package",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ai-med-tools/tokenizer.git"
+  },
+  "author": "",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "babel-eslint": "^10.1.0",
+    "commitizen": "^4.2.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import-helpers": "^1.1.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "standard-version": "^9.0.0",
+    "@tsconfig/node14": "^1.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^14.11.5",
+    "commander": "^8.2.0",
+    "typescript": "next"
+  },
+  "scripts": {
+    "pretty": "prettier --write .",
+    "commit": "git-cz",
+    "lint:code": "eslint \"./src/*.{ts,tsx}\"",
+    "release": "standard-version",
+    "test": "echo \"No test specified\""
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts"
+}
