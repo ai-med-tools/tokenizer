@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.2 (2023-04-26)
+
+
+### Features
+
+* **ini:** initial commit ([2d974d7](https://github.com/ai-med-tools/tokenizer/commit/2d974d736ab4fbdf642ac77759fdf482e86f516f))
+
 ### [1.2.3](https://github.com/upgreat-readable/criteria/compare/v1.2.2...v1.2.3) (2021-11-02)
 
 ### [1.2.2](https://github.com/upgreat-readable/criteria/compare/v1.2.1...v1.2.2) (2021-10-14)
