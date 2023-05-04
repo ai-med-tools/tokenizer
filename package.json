@@ -1,6 +1,6 @@
 {
   "name": "@ai-med-tools/tokenizer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "aimed tokenizer package",
   "repository": {
     "type": "git",
