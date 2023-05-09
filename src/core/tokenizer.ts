@@ -4,13 +4,13 @@ export class Tokenizer {
 
     public static neededKeys = ['xPath', 'start', 'end', 'decorCode', 'code', 'name'];
     public static prepareToTokenize(lotOfMarkup:{xPath: string, start: number, end: number, decorCode: DecorCode, code: string, name: string }[]) {
-        lotOfMarkup.map((value) => {
-            /** Объект из решения */
-            const keys = Object.keys(value);
-            if (!this.neededKeys.every(item => keys.includes(item))) {
-                throw new Error('Объект разметки не готов к расчёту');
-            }
-        });
+        // lotOfMarkup.map((value) => {
+        //     /** Объект из решения */
+        //     const keys = Object.keys(value);
+        //     if (!this.neededKeys.every(item => keys.includes(item))) {
+        //         throw new Error('Объект разметки не готов к расчёту');
+        //     }
+        // });
 
         return lotOfMarkup.map((value) => {
             const format = new ToTokizerFormatDto();
