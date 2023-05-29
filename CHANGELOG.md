@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/ai-med-tools/tokenizer/compare/v0.0.4...v0.0.5) (2023-05-29)
+
+
+### Bug Fixes
+
+* **punctuation mark:** correct work with punctuation mark ([1e89826](https://github.com/ai-med-tools/tokenizer/commit/1e8982620962ef3679dfb4875db5a22ccb620e5d))
+
 ### 0.0.4 (2023-05-09)
 
 
