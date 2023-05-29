@@ -25,6 +25,7 @@ export class Tokenizer {
             const initialDelay = value.startFromBlock;
 
             const firstIteration = Tokenizer.splitBySpaces(value.text);
+
             const secondIteration = Tokenizer.searchPunctuationInLimitsOfWord(firstIteration);
             return Tokenizer.calculateResultOfDelays(secondIteration, initialDelay);
 
@@ -44,7 +45,7 @@ export class Tokenizer {
             if (index === 0) {
                 delay = 0;
             }
-            if (fragment == '') {
+            if (fragment == '' || fragment.match(/\p{P}/gu)) {
                 delay++;
             } else {
                 const interim = new InterimTokenDto();
