@@ -25,7 +25,7 @@ export class Tokenizer {
             const initialDelay = value.startFromBlock;
 
             const firstIteration = Tokenizer.splitBySpaces(value.text);
-
+            // console.log(firstIteration);
             const secondIteration = Tokenizer.searchPunctuationInLimitsOfWord(firstIteration);
             return Tokenizer.calculateResultOfDelays(secondIteration, initialDelay);
 
@@ -42,17 +42,35 @@ export class Tokenizer {
 
         let secondIteration: InterimTokenDto[] = [];
         for (const fragment of firstIteration) {
+            // console.log(fragment);
             if (index === 0) {
                 delay = 0;
             }
-            if (fragment == '' || fragment.match(/\p{P}/gu)) {
+            if (fragment == '' || ( fragment.length == 1 && fragment.match(/\p{P}/gu))) {
                 delay++;
             } else {
-                const interim = new InterimTokenDto();
-                interim.delay = delay;
-                interim.text = fragment;
-                secondIteration.push(interim);
-                delay = 1;
+                if (fragment.match(/\p{P}/gu) && !fragment[fragment.length-1].match(/\p{P}/gu) && !fragment[0].match(/\p{P}/gu)) {
+                        const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
+                        let indexInside = 0
+                        for (const spm of splitByPMInsideTheWord) {
+                            const interim = new InterimTokenDto();
+                            interim.delay = delay;
+                            interim.text = spm;
+                            secondIteration.push(interim);
+                            delay = 1;
+
+                            indexInside++;
+                        }
+                    // console.log(fragment.length);
+                    // console.log(fragment[fragment.length-1]);
+                    // console.log(fragment.split(/\p{P}/gu));
+                } else {
+                    const interim = new InterimTokenDto();
+                    interim.delay = delay;
+                    interim.text = fragment;
+                    secondIteration.push(interim);
+                    delay = 1;
+                }
             }
             index++;
         }

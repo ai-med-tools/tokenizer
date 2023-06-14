@@ -1,7 +1,8 @@
 import {DecorCode} from "./core/tokens.dto";
 import {Tokenizer} from "./core/tokenizer";
 
-const textFragment = 'В обратном случае , создаётся два токена - от ';
+const textFragment = 'Рос и развивался согласно возрасту.Вредные привычки отсутствуют ';
+// const textFragment = ' АД: 130/90';
 
 const x = [{xPath: '', start: 1, end: 2, decorCode: DecorCode.symptom, code: '', name: textFragment }];
 
