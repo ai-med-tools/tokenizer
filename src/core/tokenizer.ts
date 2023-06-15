@@ -49,11 +49,31 @@ export class Tokenizer {
             if (fragment == '' || ( fragment.length == 1 && fragment.match(/\p{P}/gu))) {
                 delay++;
             } else {
-                if (fragment.match(/\p{P}/gu) && !fragment[fragment.length-1].match(/\p{P}/gu) && !fragment[0].match(/\p{P}/gu)) {
+                if (fragment.match(/\p{P}/gu )) {
+                // && !fragment[fragment.length-1].match(/\p{P}/gu) && !fragment[0].match(/\p{P}/gu)
+                //     if (fragment[fragment.length-1].match(/\p{P}/gu)) {
+                //         let lastInside = true
+                //     }
+                //
+                //     if (fragment[0].match(/\p{P}/gu)) {
+                //         const firstInside = true
+                //     }
+
+
                         const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
+                    console.log(splitByPMInsideTheWord);
                         let indexInside = 0
                         for (const spm of splitByPMInsideTheWord) {
                             const interim = new InterimTokenDto();
+                            console.log(index);
+                            if (spm === '') {
+                                if (indexInside === 0 && index === 0) {
+                                    delay = 1
+                                } else if (index !== 0) {
+                                    delay = 2
+                                }
+                                continue;
+                            }
                             interim.delay = delay;
                             interim.text = spm;
                             secondIteration.push(interim);
@@ -61,9 +81,6 @@ export class Tokenizer {
 
                             indexInside++;
                         }
-                    // console.log(fragment.length);
-                    // console.log(fragment[fragment.length-1]);
-                    // console.log(fragment.split(/\p{P}/gu));
                 } else {
                     const interim = new InterimTokenDto();
                     interim.delay = delay;
