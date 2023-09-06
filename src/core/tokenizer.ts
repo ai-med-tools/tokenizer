@@ -4,14 +4,6 @@ export class Tokenizer {
 
     public static neededKeys = ['xPath', 'start', 'end', 'decorCode', 'code', 'name'];
     public static prepareToTokenize(lotOfMarkup:{xPath: string, start: number, end: number, decorCode: DecorCode, code: string, name: string }[]) {
-        // lotOfMarkup.map((value) => {
-        //     /** Объект из решения */
-        //     const keys = Object.keys(value);
-        //     if (!this.neededKeys.every(item => keys.includes(item))) {
-        //         throw new Error('Объект разметки не готов к расчёту');
-        //     }
-        // });
-
         return lotOfMarkup.map((value) => {
             const format = new ToTokizerFormatDto();
             format.text = value.name;
@@ -21,7 +13,8 @@ export class Tokenizer {
     }
 
     public static tokenize(args: ToTokizerFormatDto[]) {
-        const arrayOfInculeTokens = args.map((value) => {
+        const arrayOfInculeTokens = args.map((value, index) => {
+            console.log(`Разметка номер - ${index}`)
             const initialDelay = value.startFromBlock;
 
             const firstIteration = Tokenizer.splitBySpaces(value.text);
@@ -37,6 +30,8 @@ export class Tokenizer {
 
     public static splitBySpaces(fragment: string) {
         const firstIteration = fragment.split(" ");
+        console.log(`Разбиение по пробелам - `)
+        console.log(firstIteration)
         let delay = 1;
         let index = 0;
 
@@ -50,22 +45,10 @@ export class Tokenizer {
                 delay++;
             } else {
                 if (fragment.match(/\p{P}/gu )) {
-                // && !fragment[fragment.length-1].match(/\p{P}/gu) && !fragment[0].match(/\p{P}/gu)
-                //     if (fragment[fragment.length-1].match(/\p{P}/gu)) {
-                //         let lastInside = true
-                //     }
-                //
-                //     if (fragment[0].match(/\p{P}/gu)) {
-                //         const firstInside = true
-                //     }
-
-
                         const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
-                    console.log(splitByPMInsideTheWord);
                         let indexInside = 0
                         for (const spm of splitByPMInsideTheWord) {
                             const interim = new InterimTokenDto();
-                            console.log(index);
                             if (spm === '') {
                                 if (indexInside === 0 && index === 0) {
                                     delay = 1
@@ -91,6 +74,9 @@ export class Tokenizer {
             }
             index++;
         }
+
+        console.log(`Разбиение по прочим знакам препинания - `)
+        console.log(secondIteration)
 
         return secondIteration;
     }
@@ -139,6 +125,9 @@ export class Tokenizer {
 
         }
 
+        console.log("Дополнительное разбиение по границам слов - ")
+        console.log(secondIteration)
+
         return secondIteration;
     }
 
@@ -153,6 +142,9 @@ export class Tokenizer {
 
             result.push(token);
         }
+
+        console.log("Результат по координатам после подсчёта")
+        console.log(result)
 
         return result;
     }
