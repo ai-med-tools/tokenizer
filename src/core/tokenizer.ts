@@ -15,6 +15,7 @@ export class Tokenizer {
     public static tokenize(args: ToTokizerFormatDto[]) {
         const arrayOfInculeTokens = args.map((value, index) => {
             console.log(`Разметка номер - ${index}`)
+            console.log(`Фрагмент -  ${value.text}`)
             const initialDelay = value.startFromBlock;
 
             const firstIteration = Tokenizer.splitBySpaces(value.text);
