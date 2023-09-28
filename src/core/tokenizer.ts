@@ -43,7 +43,7 @@ export class Tokenizer {
                 delay = 0;
             }
             if (fragment == '' || ( fragment.length == 1 && fragment.match(/\p{P}/gu))) {
-                delay++;
+                delay += 2;
             } else {
                 if (fragment.match(/\p{P}/gu )) {
                         const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
