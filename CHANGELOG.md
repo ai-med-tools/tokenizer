@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/ai-med-tools/tokenizer/compare/v0.0.7...v0.0.8) (2023-10-15)
+
+
+### Features
+
+* **logs:** расширенные логи ([146d8f4](https://github.com/ai-med-tools/tokenizer/commit/146d8f405aa35ffc44cbc95acd7b09c60dd35f58))
+* **logs:** расширенные логи ([bd50028](https://github.com/ai-med-tools/tokenizer/commit/bd5002857c6742bddeb32ada55198d28355d4c64))
+
+
+### Bug Fixes
+
+* **token:** смещение для первого знака препинания ([437744e](https://github.com/ai-med-tools/tokenizer/commit/437744ec14a724a8762c0433dba235ac4757df3d))
+
 ### [0.0.7](https://github.com/ai-med-tools/tokenizer/compare/v0.0.3...v0.0.7) (2023-06-15)
 
 
