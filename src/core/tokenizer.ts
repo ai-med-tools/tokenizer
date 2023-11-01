@@ -38,33 +38,52 @@ export class Tokenizer {
 
         let secondIteration: InterimTokenDto[] = [];
         for (const fragment of firstIteration) {
-            // console.log(fragment);
             if (index === 0) {
                 delay = 0;
             }
-            if (fragment == '' || ( fragment.length == 1 && fragment.match(/\p{P}/gu))) {
-                delay += 2;
+            if (fragment == '' || ( fragment.length == 1 && fragment.match(/\p{P}/gu)) || ( fragment.length == 1 && fragment.match(/[\r\n\t]+/gm))) {
+                delay += fragment.length +1 ;
             } else {
                 if (fragment.match(/\p{P}/gu )) {
-                        const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
-                        let indexInside = 0
-                        for (const spm of splitByPMInsideTheWord) {
-                            const interim = new InterimTokenDto();
-                            if (spm === '') {
-                                if (indexInside === 0 && index === 0) {
-                                    delay = 1
-                                } else if (index !== 0) {
-                                    delay = 2
-                                }
-                                continue;
+                    const splitByPMInsideTheWord = fragment.split(/\p{P}/gu);
+                    let indexInside = 0
+                    for (const spm of splitByPMInsideTheWord) {
+                        const interim = new InterimTokenDto();
+                        if (spm === '' || spm.match(/\p{P}/gu) || spm.match(/[\r\n\t]+/gm)) {
+                            if (indexInside === 0 && index === 0) {
+                                delay += 1
+                            } else if (index !== 0 || indexInside !== 0) {
+                                delay += spm.length + 1
                             }
-                            interim.delay = delay;
-                            interim.text = spm;
-                            secondIteration.push(interim);
-                            delay = 1;
-
                             indexInside++;
+                            continue;
                         }
+                        interim.delay = delay;
+                        interim.text = spm;
+                        secondIteration.push(interim);
+                        delay = 1;
+
+                    }
+                } else if (fragment.match(/[\r\n\t]+/gm)) {
+                    const splitByPMInsideTheWord = fragment.split(/[\r\n\t]+/gm);
+                    let indexInside = 0
+                    for (const spm of splitByPMInsideTheWord) {
+                        const interim = new InterimTokenDto();
+                        if (spm === '' || spm.match(/\p{P}/gu) || spm.match(/[\r\n\t]+/gm)) {
+                            if (indexInside === 0 && index === 0) {
+                                delay += 1
+                            } else if (index !== 0 || indexInside !== 0) {
+                                delay += spm.length + 1
+                            }
+                            indexInside++;
+                            continue;
+                        }
+                        interim.delay = delay;
+                        interim.text = spm;
+                        secondIteration.push(interim);
+                        delay = 1;
+
+                    }
                 } else {
                     const interim = new InterimTokenDto();
                     interim.delay = delay;
@@ -90,7 +109,7 @@ export class Tokenizer {
             let letterDelayBegin = 0;
             for (const symbol of symbolsArray) {
                 /** если знак препинания в начале */
-                if (symbol.match(/\p{P}/gu)) {
+                if (symbol.match(/\p{P}/gu) || symbol.match(/[\r\n\t]+/gm)) {
                     letterDelayBegin++;
                 } else {
                     break;
@@ -102,7 +121,7 @@ export class Tokenizer {
             let letterDelayEnd = symbolsArray.length;
             for (const symbol of reversedSymbolsArray) {
                 /** если знак препинания в конце */
-                if (symbol.match(/\p{P}/gu)) {
+                if (symbol.match(/\p{P}/gu) || symbol.match(/[\r\n\t]+/gm)) {
                     letterDelayEnd--;
                 } else {
                     break;
