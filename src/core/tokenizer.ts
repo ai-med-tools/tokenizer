@@ -12,14 +12,15 @@ export class Tokenizer {
         })
     }
 
-    public static tokenize(args: ToTokizerFormatDto[]) {
+    public static tokenize(args: ToTokizerFormatDto[], log = false) {
         const arrayOfInculeTokens = args.map((value, index) => {
-            console.log(`Разметка номер - ${index}`)
-            console.log(`Фрагмент -  ${value.text}`)
+            if (log) {
+                console.log(`Разметка номер - ${index}`)
+                console.log(`Фрагмент -  ${value.text}`)
+            }
             const initialDelay = value.startFromBlock;
 
-            const firstIteration = Tokenizer.splitBySpaces(value.text);
-            // console.log(firstIteration);
+            const firstIteration = Tokenizer.splitBySpaces(value.text, log);
             const secondIteration = Tokenizer.searchPunctuationInLimitsOfWord(firstIteration);
             return Tokenizer.calculateResultOfDelays(secondIteration, initialDelay);
 
@@ -29,10 +30,12 @@ export class Tokenizer {
 
     }
 
-    public static splitBySpaces(fragment: string) {
+    public static splitBySpaces(fragment: string, log = false) {
         const firstIteration = fragment.split(" ");
-        // console.log(`Разбиение по пробелам - `)
-        // console.log(firstIteration)
+        if (log) {
+            console.log(`Разбиение по пробелам - `)
+            console.log(firstIteration)
+        }
         let delay = 1;
         let index = 0;
 
@@ -95,13 +98,15 @@ export class Tokenizer {
             index++;
         }
 
-        // console.log(`Разбиение по прочим знакам препинания - `)
-        // console.log(secondIteration)
+        if (log) {
+            console.log(`Разбиение по прочим знакам препинания - `)
+            console.log(secondIteration)
+        }
 
         return secondIteration;
     }
 
-    public static searchPunctuationInLimitsOfWord(secondIteration: InterimTokenDto[]) {
+    public static searchPunctuationInLimitsOfWord(secondIteration: InterimTokenDto[], log = false) {
         let symbolIndex = 0;
         for (const detailFragment of secondIteration) {
             const symbolsArray = detailFragment.text.split("");
@@ -145,13 +150,15 @@ export class Tokenizer {
 
         }
 
-        console.log("Дополнительное разбиение по границам слов - ")
-        console.log(secondIteration)
+        if (log) {
+            console.log("Дополнительное разбиение по границам слов - ")
+            console.log(secondIteration)
+        }
 
         return secondIteration;
     }
 
-    public static calculateResultOfDelays(secondIteration: InterimTokenDto[], initialDelay: number): TokenDto[] {
+    public static calculateResultOfDelays(secondIteration: InterimTokenDto[], initialDelay: number, log = false): TokenDto[] {
         let result: TokenDto[] = [];
         for (const detail of secondIteration) {
             const token = new TokenDto();
@@ -163,8 +170,10 @@ export class Tokenizer {
             result.push(token);
         }
 
-        console.log("Результат по координатам после подсчёта")
-        console.log(result)
+        if (log) {
+            console.log("Результат по координатам после подсчёта")
+            console.log(result)
+        }
 
         return result;
     }

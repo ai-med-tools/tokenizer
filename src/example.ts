@@ -18,5 +18,5 @@ const x1 = [{xPath: '', start: 3, end: 2, decorCode: DecorCode.symptom, code: ''
 
 const tokenizedX1 = Tokenizer.prepareToTokenize(x1);
 // console.log({tokenizedX});
-const result1 = Tokenizer.tokenize(tokenizedX1);
+const result1 = Tokenizer.tokenize(tokenizedX1, true);
 console.log(JSON.stringify(result1, null, 2));
