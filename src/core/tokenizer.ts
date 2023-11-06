@@ -31,8 +31,8 @@ export class Tokenizer {
 
     public static splitBySpaces(fragment: string) {
         const firstIteration = fragment.split(" ");
-        console.log(`Разбиение по пробелам - `)
-        console.log(firstIteration)
+        // console.log(`Разбиение по пробелам - `)
+        // console.log(firstIteration)
         let delay = 1;
         let index = 0;
 
@@ -95,8 +95,8 @@ export class Tokenizer {
             index++;
         }
 
-        console.log(`Разбиение по прочим знакам препинания - `)
-        console.log(secondIteration)
+        // console.log(`Разбиение по прочим знакам препинания - `)
+        // console.log(secondIteration)
 
         return secondIteration;
     }
